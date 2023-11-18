@@ -38,6 +38,7 @@ class Random
 private:
     static Random instance;
     std::string Answer;
+    int seed;
 
 public:
     Random()
@@ -75,20 +76,18 @@ public:
         if(res != CURLE_OK)
         {
             fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+            srand(time(0));
+            // seed par time car on arrive pas a contacter le serveur
         }
         else
         {
-            /*
-            * Now, our chunk.memory points to a memory block that is chunk.size
-            * bytes big and contains the remote file.
-            *
-            * Do something nice with it!
-            */ 
             Answer = chunk.memory;
-            pos = Answer.find("")
-            seed = Answer.substr(0,)
+            // Answer devrait ressembler a {"type":"uint16","length":1,"data":[24379],"success":true}
+            seed = std::stoi(Answer,Answer.find("["));
             std::cout << Answer << std::endl;
             std::cout << (long)chunk.size << "bytes retrieved" << std::endl;
+            srand(seed);
+            // seed par serveur
         }
 
         /* cleanup curl stuff */ 

@@ -26,7 +26,7 @@ public:
 		currentScene = nullptr;
 
 		// Ajout des ressources au gestionnaire de ressources
-    RessourceManager::add("BlueRoosterSurface", IMG_Load("assets/images/bluerooster.png"));
+    RessourceManager::add("BlueRoosterSurface", IMG_Load("./assets/images/bluerooster.png"));
 	}
 
 	virtual ~CrocodileGame() {

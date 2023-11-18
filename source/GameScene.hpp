@@ -27,6 +27,7 @@ public:
 	void handleDraw(Renderer *renderer) {
 		if (!imageTexturesRefreshed) {
       ((Image *)components["BlueRoosterImage"])->refreshTexture(renderer);
+      imageTexturesRefreshed = true;
 		}
 		renderer->clear();
 

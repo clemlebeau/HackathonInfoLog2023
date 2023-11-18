@@ -15,6 +15,8 @@ public:
 		imageTexturesRefreshed = false;
 	}
 
+  virtual ~GameScene() {}
+
 	void setParams(int argc, ...) {}
 
 	void notification() {

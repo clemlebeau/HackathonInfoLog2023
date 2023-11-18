@@ -29,7 +29,10 @@ public:
     RessourceManager::add("BlueRoosterSurface", IMG_Load("assets/images/bluerooster.png"));
 	}
 
-	virtual ~CrocodileGame() {}
+	virtual ~CrocodileGame() {
+    SDL_FreeSurface(RessourceManager::get<SDL_Surface *>("BlueRoosterSurface"));
+    RessourceManager::remove("BlueRoosterSurface");
+  }
 
 	/// @brief Change la scène actuelle
 	/// @param sceneName Nom de la scène pour laquelle changer

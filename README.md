@@ -1,6 +1,8 @@
 # HackathonInfoLog2023
+## Présentation du projet
 Notre entrée au [Hackathon GIGL 2023 de Polytechnique Montréal](https://github.com/MathieuPCorbeil/HackathonGIGL2023/tree/main). Le thème du Hackathon est "Rêve d'enfance", alors nous avons décidé de recréer le jouet pour enfant du crocodile qui mord les doigts. Évidemment, on a adapté les graphiques "à notre sauce" pour rendre le jeu plus représentatif de la terreur ressentie par un jeune enfant alors qu'il y joue.
 
+### Photo du jouet qu'on recrée
 ![Photo du jouet qu'on recrée](http://i2.cdscdn.com/pdt2/0/6/5/1/700x700/gee2009815369065/rw/jouet-crocodile-dentiste-mord-doigts-jeu-enfants-k.jpg "Le jouet qu'on veut recréer")
 
 ## Technologies utilisées

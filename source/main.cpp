@@ -3,6 +3,7 @@
 #include "Application.hpp"
 #include "CrocodileGame.hpp"
 #include "GameScene.hpp"
+#include "Random.hpp"
 
 int main(int argc, char *argv[]) {
 	CrocodileGame *game = new CrocodileGame();

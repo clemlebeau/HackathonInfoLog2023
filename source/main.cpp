@@ -1,4 +1,7 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_main.h>
 
 #include "Application.hpp"
 #include "CrocodileGame.hpp"

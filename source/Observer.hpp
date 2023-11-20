@@ -4,8 +4,6 @@
 
 #pragma once
 
-using namespace std;
-
 ///@class Observer
 ///@brief Reçoit une notification de la classe Observable
 

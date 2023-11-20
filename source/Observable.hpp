@@ -7,14 +7,13 @@
 #include "Observer.hpp"
 #include <list>
 
-using namespace std;
 ///@class Observable 
 ///@brief Gère les observateurs et les notifies
 
 class Observable{
 
 	private:
-		list <Observer*> observers; ///< Liste d'observateurs
+		std::list <Observer*> observers; ///< Liste d'observateurs
 
 	public:
         /// @brief Ajoute un observateur à la liste observers

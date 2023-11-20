@@ -7,18 +7,16 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 ///\class RessourceManager
 ///\brief Conteneur des ressources(textures, fonts, etc.) et permet d'y accéder
 class RessourceManager {
 private:
-    static map<string, void*> ressources; ///< Map de l'entièreté des ressources
+    static std::map<std::string, void*> ressources; ///< Map de l'entièreté des ressources
 
 public:
     /// @brief Permet d'enlever une ressource à la map de ressources
     /// @param key Clé qui identifie la ressource qu'on veut enlever
-    static void remove(string key) {
+    static void remove(std::string key) {
         ressources.erase(key);
     }
 
@@ -27,15 +25,15 @@ public:
     /// @param key Clé qui indique la ressource qu'on veut obtenir
     /// @return Retourne la ressource voulue
     template <typename T>
-    static T get(string key) {
+    static T get(std::string key) {
         return (T)ressources[key];
     }
 
     /// @brief Permet d'ajouter une ressource à la map de ressources
     /// @param key Clé qui identifie la ressource qu'on veut ajouter
     /// @param ressource Ressource à ajouter
-    static void add(string key, void* ressource) {
+    static void add(std::string key, void* ressource) {
         ressources[key] = ressource;
     }
 };
-map<string, void*> RessourceManager::ressources;
+std::map<std::string, void*> RessourceManager::ressources;

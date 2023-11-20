@@ -5,7 +5,7 @@
 #include "GameScene.hpp"
 #include "Random.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
 	CrocodileGame *game = new CrocodileGame();
   Scene *gameScene = new GameScene();
 

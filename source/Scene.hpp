@@ -14,7 +14,6 @@
 #include "Observer.hpp"
 #include "Cursor.hpp"
 
-using namespace std;
 /// @class Scene
 /// @brief Représentation d'une scène
 
@@ -22,9 +21,9 @@ class Scene : public Observer
 {
 
 private:
-    map<unsigned int, Observable*> eventTypes; ///< Contient tous les observables selon leur type d'événement
+    std::map<unsigned int, Observable*> eventTypes; ///< Contient tous les observables selon leur type d'événement
 protected:
-    map<std::string, Component *> components; /// Contient tous les components selon leur nom
+    std::map<std::string, Component *> components; /// Contient tous les components selon leur nom
 
 public:
     Scene()

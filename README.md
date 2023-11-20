@@ -4,13 +4,14 @@ Notre entrée au [Hackathon GIGL 2023 de Polytechnique Montréal](https://github
 
 ### Photo du jouet qu'on recrée
 ![Photo du jouet qu'on recrée](http://i2.cdscdn.com/pdt2/0/6/5/1/700x700/gee2009815369065/rw/jouet-crocodile-dentiste-mord-doigts-jeu-enfants-k.jpg "Le jouet qu'on veut recréer")
+[Lien de l'image](http://i2.cdscdn.com/pdt2/0/6/5/1/700x700/gee2009815369065/rw/jouet-crocodile-dentiste-mord-doigts-jeu-enfants-k.jpg)
 
 ## Technologies utilisées
 Le jeu est programmé en C++ et l'affichage se fait avec la librairie graphique SDL2. Le PRNG (pseudo random number generator) du jeu est initialisé avec un [API qui génère des nombres aléatoires à l'aide de la mécanique quantique](https://qrng.anu.edu.au/).
 
 ## Utiliser le projet
-Les librairies suivantes sont requises pour compiler le projet: SDL2, SDL2_image, SDL2_mixer, SDL2_ttf.
-Le projet a été configuré avec gcc comme compilateur, mais un autre peut être utilisé si vous le souhaitez.
+Les librairies suivantes sont requises pour compiler le projet: SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, curl, openssl, cstdlib.
+Le projet a été configuré avec g++ comme compilateur, mais un autre peut être utilisé si vous le souhaitez.
 
 ### Exemple d'installation des librairies avec MinGW
 Installation du compilateur
@@ -29,4 +30,10 @@ pacman -Sy mingw-w64-x86_64-SDL2_mixer
 ```
 ```bash
 pacman -Sy mingw-w64-x86_64-SDL2_ttf
+```
+```bash
+pacman -Sy mingw-w64-x86_64-openssl
+```
+```bash
+pacman -Sy mingw-w64-x86_64-curl
 ```

@@ -22,7 +22,7 @@ private:
 
 public:
 	CrocodileGame() :
-		Renderer("CrocodileGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1024, 768) {
+		Renderer("CrocodileGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720) {
 		currentScene = nullptr;
 
 		// Ajout des ressources au gestionnaire de ressources

@@ -6,6 +6,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
+#include <functional>
+#include <openssl/rand.h>
 
 struct MemoryStruct {
 	char *memory;
@@ -36,7 +38,8 @@ private:
 	static Random instance;
 	std::string Answer;
 	int seed;
-
+    const uint32_t maxRandIter = 256;
+    
 public:
 	Random() {
 		CURL *curl_handle;
@@ -71,7 +74,7 @@ public:
 		/* check for errors */
 		if (res != CURLE_OK) {
 			fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-			srand(time(0));
+			seed = time(0);
 			// seed par time car on arrive pas a contacter le serveur
 		}
 		else {
@@ -83,10 +86,9 @@ public:
 			}
 			else {
 				std::string cutAnswer = Answer.substr(pos + 1);
-				seed = stoi(cutAnswer);
+				seed = std::stoi(cutAnswer);
 				std::cout << Answer << std::endl;
 				std::cout << (long) chunk.size << "bytes retrieved" << std::endl;
-				srand(seed);
 				// seed par serveur
 			}
 		}
@@ -99,15 +101,28 @@ public:
 
 		/* we're done with libcurl, so clean it up */
 		curl_global_cleanup();
-		srand(time(0));
+		RAND_seed(&seed,sizeof(seed));
 	}
 
-	static Random &getInstance() {
+	static Random &getInstance()
+    {
 		return instance;
 	}
 
-	int range(int min, int max) {
-		return rand() % (max - min + 1) + min;
+	int range(int min, int max)
+    {
+        uint8_t buf[sizeof(uintmax_t)/sizeof(uint8_t)];
+        uint32_t iterCounter = 0;
+        while(RAND_priv_bytes(buf,sizeof(uintmax_t)/sizeof(uint8_t)) != 1 && iterCounter < maxRandIter)
+        {
+            iterCounter++;
+        }
+        if(iterCounter >= maxRandIter)
+        {
+            return rand() % (max - min + 1) + min; //Si la fonction RAND_priv_bytes rate plus de maxRandIter fois, on utilise rand()
+        }
+        uintmax_t output = *(uintmax_t*)buf;
+        return output % (max - min + 1) + min; //Sinon on utilise RAND_priv_bytes
 	}
 };
 Random Random::instance;

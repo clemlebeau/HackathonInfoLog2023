@@ -26,7 +26,11 @@
         "-lSDL2main",
         "-lSDL2",
         "-lcurl.dll",
-        "-mwindows"
+        "-mwindows",
+        "-IC:/msys64/mingw64/bin/../include",
+        "-LC:/msys64/mingw64/bin/../lib",
+        "-lssl",
+        "-lcrypto"
       ],
       "options": {
         "cwd": "C:/msys64/mingw64/bin"

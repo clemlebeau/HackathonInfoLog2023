@@ -18,12 +18,15 @@ public:
     Image(int x, int y, SDL_Texture *texture) : Component(x, y)
     {
         this->texture = texture;
+        SDL_QueryTexture(texture, nullptr, nullptr, &(this->rectangle.w), &(this->rectangle.h));
         surface = nullptr;
     }
 
     Image(int x, int y, SDL_Surface *surface) : Component(x, y)
     {
         this->surface = surface;
+        this->rectangle.w = surface->w;
+        this->rectangle.h = surface->h;
         texture = nullptr;
     }
 

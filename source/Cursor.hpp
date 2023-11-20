@@ -36,7 +36,7 @@ public:
     /// @brief Cette méthode est appellée quand un MouseMotion event est détecté
     void notification()
     {
-        setTexture(RessourceManager::get<SDL_Texture*>("cursor"));
+        setTexture(RessourceManager::get<SDL_Texture*>("Cursor"));
         dstRect.x = Event::getMouseMotionX();
         dstRect.y = Event::getMouseMotionY();
     }

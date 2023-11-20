@@ -19,7 +19,7 @@ private:
     SDL_Renderer *renderer; /// Pointeur vers le moteur de rendu SDL
 
 public:
-    Renderer(const char *title = "", int x = SDL_WINDOWPOS_CENTERED, int y = SDL_WINDOWPOS_CENTERED, int width = 640, int height = 480, unsigned int windowFlags = 0, int index = -1, unsigned int rendererFlags = SDL_RENDERER_ACCELERATED) : Window(title, x, y, width, height, windowFlags)
+    Renderer(const char *title = "", int x = SDL_WINDOWPOS_CENTERED, int y = SDL_WINDOWPOS_CENTERED, int width = 640, int height = 480, unsigned int windowFlags = 0, int index = -1, unsigned int rendererFlags = SDL_RENDERER_PRESENTVSYNC) : Window(title, x, y, width, height, windowFlags)
     {
         renderer = SDL_CreateRenderer(Window::window, index, rendererFlags);
     }

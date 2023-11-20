@@ -26,12 +26,17 @@ public:
 		currentScene = nullptr;
 
 		// Ajout des ressources au gestionnaire de ressources
-    RessourceManager::add("BlueRoosterSurface", IMG_Load("./assets/images/bluerooster.png"));
+		RessourceManager::add("Cursor", loadTextureFromImage("./assets/images/cursor.png"));
+		Cursor::getInstance()->setTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
+
+    RessourceManager::add("BlueRoosterTexture", loadTextureFromImage("./assets/images/bluerooster.png"));
 	}
 
 	virtual ~CrocodileGame() {
-    SDL_FreeSurface(RessourceManager::get<SDL_Surface *>("BlueRoosterSurface"));
-    RessourceManager::remove("BlueRoosterSurface");
+    SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
+    RessourceManager::remove("Cursor");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("BlueRoosterTexture"));
+    RessourceManager::remove("BlueRoosterTexture");
   }
 
 	/// @brief Change la scène actuelle

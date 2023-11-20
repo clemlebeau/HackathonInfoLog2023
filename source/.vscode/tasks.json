@@ -13,6 +13,7 @@
         "-IC:/msys64/mingw64/include/libpng16",
         "-IC:/msys64/mingw64/include/glib-2.0",
         "-IC:/msys64/mingw64/lib/glib-2.0/include",
+        "-IC:/msys64/mingw64/bin/../include",
         "-mms-bitfields",
         "-Dmain=SDL_main",
         "-o",
@@ -25,12 +26,11 @@
         "-lmingw32",
         "-lSDL2main",
         "-lSDL2",
-        "-lcurl.dll",
         "-mwindows",
-        "-IC:/msys64/mingw64/bin/../include",
-        "-LC:/msys64/mingw64/bin/../lib",
         "-lssl",
-        "-lcrypto"
+        "-lcrypto",
+        "-LC:/msys64/mingw64/bin/../lib",
+        "-lcurl"
       ],
       "options": {
         "cwd": "C:/msys64/mingw64/bin"

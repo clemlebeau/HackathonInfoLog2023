@@ -14,6 +14,9 @@
 #include "Observer.hpp"
 #include "Cursor.hpp"
 
+#define RENDER_WIDTH 1280
+#define RENDER_HEIGHT 720
+
 /// @class Scene
 /// @brief Représentation d'une scène
 

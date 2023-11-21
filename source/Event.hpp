@@ -10,6 +10,10 @@
 #define GAME_LOST 32769
 #define GAME_WON 32770
 
+#define MENU_JOUER_CLICK 32771
+#define MENU_QUITTER_CLICK 32772
+
+
 /// @class Event
 /// @brief Implémentation orientée objet du type SDL_Event de SDL2
 class Event

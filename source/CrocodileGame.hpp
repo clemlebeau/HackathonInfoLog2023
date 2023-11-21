@@ -22,7 +22,7 @@ private:
 
 public:
 	CrocodileGame() :
-		Renderer("CrocodileGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720) {
+		Renderer("CrocodileGame", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, RENDER_WIDTH, RENDER_HEIGHT) {
 		currentScene = nullptr;
 
 		// Ajout des ressources au gestionnaire de ressources
@@ -33,11 +33,22 @@ public:
     RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("./assets/images/croco/CrocoMiddle.png"));
     RessourceManager::add("CrocoBackTexture", loadTextureFromImage("./assets/images/croco/CrocoBack.png"));
     RessourceManager::add("WaterTexture", loadTextureFromImage("./assets/images/size720p/Water.png"));
+
+    RessourceManager::add("EndGagnantTexture", loadTextureFromImage("./assets/images/size720p/EndGagnant.png"));
+    RessourceManager::add("EndPerdantTexture", loadTextureFromImage("./assets/images/size720p/EndPerdant.png"));
+    RessourceManager::add("EndQuitterTexture", loadTextureFromImage("./assets/images/buttons/EndQuitter.png"));
+    RessourceManager::add("EndRejouerTexture", loadTextureFromImage("./assets/images/buttons/EndRejouer.png"));
+
+    RessourceManager::add("MenuJouerTexture", loadTextureFromImage("./assets/images/buttons/MenuJouer.png"));
+    RessourceManager::add("MenuQuitterTexture", loadTextureFromImage("./assets/images/buttons/MenuQuitter.png"));
+    RessourceManager::add("MenuCrocoTexture", loadTextureFromImage("./assets/images/size720p/MenuCroco.png"));
+    RessourceManager::add("CrocoNoBackgroundTexture", loadTextureFromImage("./assets/images/size720p/CrocoNoBackground.png"));
 	}
 
 	virtual ~CrocodileGame() {
     SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
     RessourceManager::remove("Cursor");
+		
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoFrontTexture"));
     RessourceManager::remove("CrocoFrontTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoMiddleTexture"));
@@ -46,6 +57,24 @@ public:
     RessourceManager::remove("CrocoBackTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("WaterTexture"));
     RessourceManager::remove("WaterTexture");
+
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("MenuJouerTexture"));
+    RessourceManager::remove("MenuJouerTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("MenuQuitterTexture"));
+    RessourceManager::remove("MenuQuitterTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("MenuCrocoTexture"));
+    RessourceManager::remove("MenuCrocoTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndRejouerTexture"));
+    RessourceManager::remove("EndRejouerTexture");
+
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndGagnantTexture"));
+    RessourceManager::remove("EndGagnantTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndPerdantTexture"));
+    RessourceManager::remove("EndPerdantTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndQuitterTexture"));
+    RessourceManager::remove("EndQuitterTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoNoBackgroundTexture"));
+    RessourceManager::remove("CrocoNoBackgroundTexture");
   }
 
 	/// @brief Change la scène actuelle

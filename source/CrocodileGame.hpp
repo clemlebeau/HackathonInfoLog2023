@@ -32,7 +32,7 @@ public:
     RessourceManager::add("CrocoFrontTexture", loadTextureFromImage("./assets/images/croco/CrocoFront.png"));
     RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("./assets/images/croco/CrocoMiddle.png"));
     RessourceManager::add("CrocoBackTexture", loadTextureFromImage("./assets/images/croco/CrocoBack.png"));
-    RessourceManager::add("WaterTexture", loadTextureFromImage("./assets/images/backgrounds/Water.png"));
+    RessourceManager::add("WaterTexture", loadTextureFromImage("./assets/images/size720p/Water.png"));
 	}
 
 	virtual ~CrocodileGame() {

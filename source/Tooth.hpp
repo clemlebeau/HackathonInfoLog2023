@@ -4,10 +4,13 @@
 
 class Tooth : public Image {
 private:
+	static int extendedCounter;
+
 	SDL_Surface *selectedSurface;
 	SDL_Surface *unselectedSurface;
 	bool isLethal;
 	bool isHovered;
+	bool isExtended;
 	int xExtended;
 	int yExtended;
 	int xRetracted;
@@ -53,6 +56,27 @@ private:
 		return SDL_CreateRGBSurfaceWithFormatFrom(newPixels, surface->w, surface->h, 32, surface->pitch, surface->format->format);
 	}
 
+	void select() {
+		setSurface(selectedSurface);
+		setTexture(nullptr);   // Forces Texture to refresh next frame
+	}
+
+	void unselect() {
+		setSurface(unselectedSurface);
+		setTexture(nullptr);
+	}
+
+	void retract() {
+		Tooth::extendedCounter--;
+		this->rectangle.x = xRetracted;
+		this->rectangle.y = yRetracted;
+		if (isLethal) {
+			Event::pushCustomEvent(GAME_LOST);
+		} else if (extendedCounter == 1) {
+			Event::pushCustomEvent(GAME_WON);
+		}
+	}
+
 public:
 	Tooth(int xExtended, int yExtended, int xRetracted, int yRetracted, SDL_Surface *surface, bool isLethal = false) :
 		Image(xExtended, yExtended, surface) {
@@ -61,7 +85,9 @@ public:
 		this->xRetracted = xRetracted;
 		this->yRetracted = yRetracted;
 		this->isLethal = isLethal;
+		isExtended = true;
 		isHovered = false;
+		Tooth::extendedCounter++;
 
 		unselectedSurface = surface;
 		selectedSurface = generateHighlightedSurface(surface);
@@ -84,27 +110,24 @@ public:
 			case SDL_MOUSEMOTION: {
 				SDL_Point mousePos = {Event::getMouseMotionX(), Event::getMouseMotionY()};
 				isHovered = isOnTooth(mousePos.x, mousePos.y);
-				if (isHovered && surface == unselectedSurface) {
-					setSurface(selectedSurface);
-					setTexture(nullptr); // Forces Texture to refresh next frame
-				}
-				if (!isHovered && surface == selectedSurface) {
-					setSurface(unselectedSurface);
-					setTexture(nullptr);
+				if (isExtended) {
+					if (isHovered && surface == unselectedSurface)
+						select();
+					else if (!isHovered && surface == selectedSurface)
+						unselect();
 				}
 				break;
 			}
 			case SDL_MOUSEBUTTONUP: {
 				SDL_Point mousePos = {Event::getMouseClickX(), Event::getMouseClickY()};
-				if (isOnTooth(mousePos.x, mousePos.y)) {
-					this->rectangle.x = xRetracted;
-					this->rectangle.y = yRetracted;
-					if (isLethal) {
-						Event::pushCustomEvent(GAME_LOST);
-					}
+				if (isExtended && isOnTooth(mousePos.x, mousePos.y)) {
+					isExtended = false;
+					unselect();
+					retract();
 				}
 				break;
 			}
 		}
 	}
 };
+int Tooth::extendedCounter = 0;

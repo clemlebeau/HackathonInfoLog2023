@@ -56,7 +56,14 @@ public:
 	void setParams(int argc, ...) {}
 
 	void notification() {
-		int test = 0;
+		switch(Event::getCustomType()) {
+			case GAME_LOST:
+				{int lost = 1;}
+				break;
+			case GAME_WON:
+				{int won = 1;}
+				break;
+		}
 	}
 
 	void handleUpdate(double deltaTime) {}

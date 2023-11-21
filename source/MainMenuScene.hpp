@@ -32,10 +32,10 @@ public:
     crocoNoBackground->move(0, RENDER_HEIGHT - crocoNoBackground->getRectangle().h);
     addComponent(crocoNoBackground, "zCrocoNoBackgroundImage");
     
-    ClickableImage *menuJouer= new ClickableImage(831, 329, RessourceManager::get<SDL_Texture *>("MenuJouerTexture"), MENU_JOUER_CLICK);
+    ClickableImage *menuJouer= new ClickableImage(876, 315, RessourceManager::get<SDL_Texture *>("MenuJouerTexture"), MENU_JOUER_CLICK);
     subscribeComponent(SDL_MOUSEBUTTONUP, menuJouer);
     subscribeComponent(MENU_JOUER_CLICK, this);
-    ClickableImage *menuQuitter= new ClickableImage(791, 476, RessourceManager::get<SDL_Texture *>("MenuQuitterTexture"), MENU_QUITTER_CLICK);
+    ClickableImage *menuQuitter= new ClickableImage(853, 454, RessourceManager::get<SDL_Texture *>("MenuQuitterTexture"), MENU_QUITTER_CLICK);
     subscribeComponent(SDL_MOUSEBUTTONUP, menuQuitter);
     subscribeComponent(MENU_QUITTER_CLICK, this);
 		addComponent(menuJouer, "bMenuJouerImage");

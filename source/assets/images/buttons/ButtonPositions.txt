@@ -1,4 +1,4 @@
-MenuJouer 831 229
-MenuQuitter 791 246
-EndRejouer 441 267
-EndQuitter 462 359
+MenuJouer 876 315
+MenuQuitter 853 454
+EndRejouer 534 329
+EndQuitter 533 408

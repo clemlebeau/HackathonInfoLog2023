@@ -4,9 +4,9 @@
 #include <SDL2/SDL_main.h>
 
 #include "Application.hpp"
+#include "Random.hpp"
 #include "CrocodileGame.hpp"
 #include "GameScene.hpp"
-#include "Random.hpp"
 
 int main(int argc, char **argv) {
 	CrocodileGame *game = new CrocodileGame();

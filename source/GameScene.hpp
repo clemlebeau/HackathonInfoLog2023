@@ -17,12 +17,14 @@ private:
 	void loadTeeth(std::string path) {
 		std::ifstream positionFile(path);
 
+		int lethalTooth = Random::getInstance().range(0, 28);
+
 		int xExtended, yExtended, xRetracted, yRetracted;
 		unsigned short line = 0;
 		while(positionFile >> xExtended >> yExtended >> xRetracted >> yRetracted) {
 			std::string img_path = "assets/images/teeth/" + std::to_string(line) + ".png";
 			SDL_Surface *toothSurface = IMG_Load(img_path.c_str());
-			Tooth *tooth = new Tooth(xExtended, yExtended, xRetracted, yRetracted, toothSurface);
+			Tooth *tooth = new Tooth(xExtended, yExtended, xRetracted, yRetracted, toothSurface, line == lethalTooth);
 
 			subscribeComponent(SDL_MOUSEMOTION, tooth);
 			subscribeComponent(SDL_MOUSEBUTTONUP, tooth);
@@ -42,6 +44,9 @@ public:
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("CrocoMiddleTexture")), "dCrocoMiddleImage");
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("CrocoFrontTexture")), "zWaterImage");
 		
+		// Register custom events the scene should react to
+		subscribeComponent(GAME_LOST, this);
+		subscribeComponent(GAME_WON, this);
 
 		loadTeeth("assets/images/teeth/position.txt");
 	}
@@ -51,6 +56,7 @@ public:
 	void setParams(int argc, ...) {}
 
 	void notification() {
+		int test = 0;
 	}
 
 	void handleUpdate(double deltaTime) {}

@@ -4,6 +4,8 @@
 
 class Tooth : public Image {
 private:
+	SDL_Surface *selectedSurface;
+	SDL_Surface *unselectedSurface;
 	bool isLethal;
 	bool isHovered;
 	int xExtended;
@@ -23,7 +25,32 @@ private:
 		unsigned char buffer, alpha;   // buffer is only necessary because the next function doesn't support nullptr for unused values
 		SDL_GetRGBA(pixelColor, surface->format, &buffer, &buffer, &buffer, &alpha);
 
-		return alpha != 0;   // Only on tooth if corresponding pixel is non transparent
+		return alpha != 0;	 // Only on tooth if corresponding pixel is non transparent
+	}
+
+	SDL_Surface *generateHighlightedSurface(SDL_Surface *surface) {
+		const unsigned char DELTA_COLOR = 35;
+		unsigned int *newPixels = new unsigned int[surface->w * surface->h]();
+		for (int y = 0; y < surface->h; y++) {
+			for (int x = 0; x < surface->w; x++) {
+				int pixelIndex = y * surface->w + x;
+				unsigned int pixelColor = ((unsigned int *) (surface->pixels))[pixelIndex];
+				unsigned char r, g, b, a;
+				SDL_GetRGBA(pixelColor, surface->format, &r, &g, &b, &a);
+
+				if (a) {   // Don't modify transparent pixels
+					unsigned short avg = ((short) (r + g + b)) / 3;
+					if (avg > 150) {   // Only modify light colors
+						r = r < DELTA_COLOR ? 0 : r - DELTA_COLOR;
+						g = r < DELTA_COLOR ? 0 : r - DELTA_COLOR;
+						b = r < DELTA_COLOR ? 0 : r - DELTA_COLOR;
+					}
+					newPixels[pixelIndex] = SDL_MapRGBA(surface->format, r, g, b, 255);
+				}
+			}
+		}
+
+		return SDL_CreateRGBSurfaceWithFormatFrom(newPixels, surface->w, surface->h, 32, surface->pitch, surface->format->format);
 	}
 
 public:
@@ -35,9 +62,15 @@ public:
 		this->yRetracted = yRetracted;
 		this->isLethal = isLethal;
 		isHovered = false;
+
+		unselectedSurface = surface;
+		selectedSurface = generateHighlightedSurface(surface);
 	}
 
-	virtual ~Tooth() {}
+	virtual ~Tooth() {
+		SDL_FreeSurface(unselectedSurface);
+		SDL_FreeSurface(selectedSurface);
+	}
 
 	virtual void update(double deltaTime) {}
 
@@ -51,13 +84,24 @@ public:
 			case SDL_MOUSEMOTION: {
 				SDL_Point mousePos = {Event::getMouseMotionX(), Event::getMouseMotionY()};
 				isHovered = isOnTooth(mousePos.x, mousePos.y);
+				if (isHovered && surface == unselectedSurface) {
+					setSurface(selectedSurface);
+					setTexture(nullptr); // Forces Texture to refresh next frame
+				}
+				if (!isHovered && surface == selectedSurface) {
+					setSurface(unselectedSurface);
+					setTexture(nullptr);
+				}
 				break;
 			}
 			case SDL_MOUSEBUTTONUP: {
 				SDL_Point mousePos = {Event::getMouseClickX(), Event::getMouseClickY()};
 				if (isOnTooth(mousePos.x, mousePos.y)) {
-          this->rectangle.x = xRetracted;
-          this->rectangle.y = yRetracted;
+					this->rectangle.x = xRetracted;
+					this->rectangle.y = yRetracted;
+					if (isLethal) {
+						Event::pushCustomEvent(GAME_LOST);
+					}
 				}
 				break;
 			}

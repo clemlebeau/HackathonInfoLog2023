@@ -31,6 +31,14 @@ public:
 
 	virtual ~Image() {}
 
+	void setTexture(SDL_Texture *texture) {
+		this->texture = texture;
+	}
+
+	void setSurface(SDL_Surface *surface) {
+		this->surface = surface;
+	}
+
 	/// @brief Met à jour la texture de l'image depuis sa surface. Note: Si possible, appeler cette méthode uniquement au changement de la surface, pas à chaque frame.
 	/// @param renderer Moteur de rendu dans lequel l'image est affichée
 	void refreshTexture(Renderer *renderer) {

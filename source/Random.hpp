@@ -105,7 +105,7 @@ public:
 	}
 
 	static Random &getInstance()
-    {
+  {
 		return instance;
 	}
 

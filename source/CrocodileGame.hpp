@@ -26,23 +26,23 @@ public:
 		currentScene = nullptr;
 
 		// Ajout des ressources au gestionnaire de ressources
-		RessourceManager::add("Cursor", loadTextureFromImage("./assets/images/cursor.png"));
+		RessourceManager::add("Cursor", loadTextureFromImage("../assets/images/cursor.png"));
 		Cursor::getInstance()->setTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
 
-    RessourceManager::add("CrocoFrontTexture", loadTextureFromImage("./assets/images/croco/CrocoFront.png"));
-    RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("./assets/images/croco/CrocoMiddle.png"));
-    RessourceManager::add("CrocoBackTexture", loadTextureFromImage("./assets/images/croco/CrocoBack.png"));
-    RessourceManager::add("WaterTexture", loadTextureFromImage("./assets/images/size720p/Water.png"));
+    RessourceManager::add("CrocoFrontTexture", loadTextureFromImage("../assets/images/croco/CrocoFront.png"));
+    RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("../assets/images/croco/CrocoMiddle.png"));
+    RessourceManager::add("CrocoBackTexture", loadTextureFromImage("../assets/images/croco/CrocoBack.png"));
+    RessourceManager::add("WaterTexture", loadTextureFromImage("../assets/images/size720p/Water.png"));
 
-    RessourceManager::add("EndGagnantTexture", loadTextureFromImage("./assets/images/size720p/EndGagnant.png"));
-    RessourceManager::add("EndPerdantTexture", loadTextureFromImage("./assets/images/size720p/EndPerdant.png"));
-    RessourceManager::add("EndQuitterTexture", loadTextureFromImage("./assets/images/buttons/EndQuitter.png"));
-    RessourceManager::add("EndRejouerTexture", loadTextureFromImage("./assets/images/buttons/EndRejouer.png"));
+    RessourceManager::add("EndGagnantTexture", loadTextureFromImage("../assets/images/size720p/EndGagnant.png"));
+    RessourceManager::add("EndPerdantTexture", loadTextureFromImage("../assets/images/size720p/EndPerdant.png"));
+    RessourceManager::add("EndQuitterTexture", loadTextureFromImage("../assets/images/buttons/EndQuitter.png"));
+    RessourceManager::add("EndRejouerTexture", loadTextureFromImage("../assets/images/buttons/EndRejouer.png"));
 
-    RessourceManager::add("MenuJouerTexture", loadTextureFromImage("./assets/images/buttons/MenuJouer.png"));
-    RessourceManager::add("MenuQuitterTexture", loadTextureFromImage("./assets/images/buttons/MenuQuitter.png"));
-    RessourceManager::add("MenuCrocoTexture", loadTextureFromImage("./assets/images/size720p/MenuCroco.png"));
-    RessourceManager::add("CrocoNoBackgroundTexture", loadTextureFromImage("./assets/images/size720p/CrocoNoBackground.png"));
+    RessourceManager::add("MenuJouerTexture", loadTextureFromImage("../assets/images/buttons/MenuJouer.png"));
+    RessourceManager::add("MenuQuitterTexture", loadTextureFromImage("../assets/images/buttons/MenuQuitter.png"));
+    RessourceManager::add("MenuCrocoTexture", loadTextureFromImage("../assets/images/size720p/MenuCroco.png"));
+    RessourceManager::add("CrocoNoBackgroundTexture", loadTextureFromImage("../assets/images/size720p/CrocoNoBackground.png"));
 	}
 
 	virtual ~CrocodileGame() {

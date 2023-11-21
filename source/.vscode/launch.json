@@ -5,7 +5,7 @@
       "name": "MinGW",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${fileDirname}/program.exe",
+      "program": "${fileDirname}/bin/program.exe",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/",
@@ -20,6 +20,25 @@
         }
       ],
       "preLaunchTask": "MinGW"
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "d:/Code/HackathonInfoLog2023/source",
+      "program": "d:/Code/HackathonInfoLog2023/source/bin/program.exe",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
     }
   ]
 }

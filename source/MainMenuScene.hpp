@@ -5,6 +5,8 @@
 #include "Image.hpp"
 #include "ClickableImage.hpp"
 #include "Scene.hpp"
+#include "CrocodileGame.hpp"
+#include "Application.hpp"
 
 #define FRONT_TOOTH_MAX 16
 
@@ -39,10 +41,10 @@ public:
 	void notification() {
     switch(Event::getCustomType()) {
       case MENU_JOUER_CLICK:
-      {int test = 0;}
+        ((CrocodileGame *)(Application::getInstance().getWindow(1)))->swapScene("GameScene");
       break;
       case MENU_QUITTER_CLICK:
-      {int test = 0;}
+        Event::pushQuitEvent();
       break;
     }
   }

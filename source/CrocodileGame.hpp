@@ -5,9 +5,9 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <map>
 #include <string>
-#include <SDL2/SDL_image.h>
 
 #include "Renderer.hpp"
 #include "RessourceManager.hpp"
@@ -29,53 +29,53 @@ public:
 		RessourceManager::add("Cursor", loadTextureFromImage("../assets/images/cursor.png"));
 		Cursor::getInstance()->setTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
 
-    RessourceManager::add("CrocoFrontTexture", loadTextureFromImage("../assets/images/croco/CrocoFront.png"));
-    RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("../assets/images/croco/CrocoMiddle.png"));
-    RessourceManager::add("CrocoBackTexture", loadTextureFromImage("../assets/images/croco/CrocoBack.png"));
-    RessourceManager::add("WaterTexture", loadTextureFromImage("../assets/images/size720p/Water.png"));
+		RessourceManager::add("CrocoFrontTexture", loadTextureFromImage("../assets/images/croco/CrocoFront.png"));
+		RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("../assets/images/croco/CrocoMiddle.png"));
+		RessourceManager::add("CrocoBackTexture", loadTextureFromImage("../assets/images/croco/CrocoBack.png"));
+		RessourceManager::add("WaterTexture", loadTextureFromImage("../assets/images/size720p/Water.png"));
 
-    RessourceManager::add("EndGagnantTexture", loadTextureFromImage("../assets/images/size720p/EndGagnant.png"));
-    RessourceManager::add("EndPerdantTexture", loadTextureFromImage("../assets/images/size720p/EndPerdant.png"));
-    RessourceManager::add("EndQuitterTexture", loadTextureFromImage("../assets/images/buttons/EndQuitter.png"));
-    RessourceManager::add("EndRejouerTexture", loadTextureFromImage("../assets/images/buttons/EndRejouer.png"));
+		RessourceManager::add("EndGagnantTexture", loadTextureFromImage("../assets/images/size720p/EndGagnant.png"));
+		RessourceManager::add("EndPerdantTexture", loadTextureFromImage("../assets/images/size720p/EndPerdant.png"));
+		RessourceManager::add("EndQuitterTexture", loadTextureFromImage("../assets/images/buttons/EndQuitter.png"));
+		RessourceManager::add("EndRejouerTexture", loadTextureFromImage("../assets/images/buttons/EndRejouer.png"));
 
-    RessourceManager::add("MenuJouerTexture", loadTextureFromImage("../assets/images/buttons/MenuJouer.png"));
-    RessourceManager::add("MenuQuitterTexture", loadTextureFromImage("../assets/images/buttons/MenuQuitter.png"));
-    RessourceManager::add("MenuCrocoTexture", loadTextureFromImage("../assets/images/size720p/MenuCroco.png"));
-    RessourceManager::add("CrocoNoBackgroundTexture", loadTextureFromImage("../assets/images/size720p/CrocoNoBackground.png"));
+		RessourceManager::add("MenuJouerTexture", loadTextureFromImage("../assets/images/buttons/MenuJouer.png"));
+		RessourceManager::add("MenuQuitterTexture", loadTextureFromImage("../assets/images/buttons/MenuQuitter.png"));
+		RessourceManager::add("MenuCrocoTexture", loadTextureFromImage("../assets/images/size720p/MenuCroco.png"));
+		RessourceManager::add("CrocoNoBackgroundTexture", loadTextureFromImage("../assets/images/size720p/CrocoNoBackground.png"));
 	}
 
 	virtual ~CrocodileGame() {
-    SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
-    RessourceManager::remove("Cursor");
-		
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
+		RessourceManager::remove("Cursor");
+
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoFrontTexture"));
-    RessourceManager::remove("CrocoFrontTexture");
+		RessourceManager::remove("CrocoFrontTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoMiddleTexture"));
-    RessourceManager::remove("CrocoMiddleTexture");
+		RessourceManager::remove("CrocoMiddleTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoBackTexture"));
-    RessourceManager::remove("CrocoBackTexture");
+		RessourceManager::remove("CrocoBackTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("WaterTexture"));
-    RessourceManager::remove("WaterTexture");
+		RessourceManager::remove("WaterTexture");
 
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("MenuJouerTexture"));
-    RessourceManager::remove("MenuJouerTexture");
+		RessourceManager::remove("MenuJouerTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("MenuQuitterTexture"));
-    RessourceManager::remove("MenuQuitterTexture");
+		RessourceManager::remove("MenuQuitterTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("MenuCrocoTexture"));
-    RessourceManager::remove("MenuCrocoTexture");
+		RessourceManager::remove("MenuCrocoTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndRejouerTexture"));
-    RessourceManager::remove("EndRejouerTexture");
+		RessourceManager::remove("EndRejouerTexture");
 
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndGagnantTexture"));
-    RessourceManager::remove("EndGagnantTexture");
+		RessourceManager::remove("EndGagnantTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndPerdantTexture"));
-    RessourceManager::remove("EndPerdantTexture");
+		RessourceManager::remove("EndPerdantTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("EndQuitterTexture"));
-    RessourceManager::remove("EndQuitterTexture");
+		RessourceManager::remove("EndQuitterTexture");
 		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoNoBackgroundTexture"));
-    RessourceManager::remove("CrocoNoBackgroundTexture");
-  }
+		RessourceManager::remove("CrocoNoBackgroundTexture");
+	}
 
 	/// @brief Change la scène actuelle
 	/// @param sceneName Nom de la scène pour laquelle changer
@@ -102,6 +102,14 @@ public:
 			if (!currentScene)
 				currentScene = scene;
 			scenes[sceneName] = scene;
+		}
+	}
+
+	template<class T>
+	void resetScene(std::string sceneName) {
+		if (scenes.find(sceneName) != scenes.end()) {
+			delete scenes[sceneName];
+			scenes[sceneName] = new T();
 		}
 	}
 

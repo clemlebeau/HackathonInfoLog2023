@@ -7,6 +7,8 @@
 #include "Image.hpp"
 #include "Scene.hpp"
 #include "Tooth.hpp"
+#include "CrocodileGame.hpp"
+#include "Application.hpp"
 
 #define FRONT_TOOTH_MAX 16
 
@@ -22,7 +24,7 @@ private:
 		int xExtended, yExtended, xRetracted, yRetracted;
 		unsigned short line = 0;
 		while(positionFile >> xExtended >> yExtended >> xRetracted >> yRetracted) {
-			std::string img_path = "assets/images/teeth/" + std::to_string(line) + ".png";
+			std::string img_path = "../assets/images/teeth/" + std::to_string(line) + ".png";
 			SDL_Surface *toothSurface = IMG_Load(img_path.c_str());
 			Tooth *tooth = new Tooth(xExtended, yExtended, xRetracted, yRetracted, toothSurface, line == lethalTooth);
 
@@ -48,7 +50,7 @@ public:
 		subscribeComponent(GAME_LOST, this);
 		subscribeComponent(GAME_WON, this);
 
-		loadTeeth("assets/images/teeth/position.txt");
+		loadTeeth("../assets/images/teeth/position.txt");
 	}
 
   virtual ~GameScene() {}
@@ -58,10 +60,12 @@ public:
 	void notification() {
 		switch(Event::getCustomType()) {
 			case GAME_LOST:
-				{int lost = 1;}
+				((CrocodileGame *)(Application::getInstance().getWindow(1)))->swapScene("EndScene");
+				((CrocodileGame *)(Application::getInstance().getWindow(1)))->getScene()->setParams(1, false);
 				break;
 			case GAME_WON:
-				{int won = 1;}
+				((CrocodileGame *)(Application::getInstance().getWindow(1)))->swapScene("EndScene");
+				((CrocodileGame *)(Application::getInstance().getWindow(1)))->getScene()->setParams(1, true);
 				break;
 		}
 	}

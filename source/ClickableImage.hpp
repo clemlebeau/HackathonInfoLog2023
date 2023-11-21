@@ -14,7 +14,7 @@ public:
 
 	virtual void notification() {
 		if (Event::getMouseClickX() >= this->rectangle.x && Event::getMouseClickX() < this->rectangle.x + this->rectangle.w &&
-			  Event::getMouseClickY() >= this->rectangle.y && Event::getMouseClickY() < this->rectangle.y + this->rectangle.y)
+			  Event::getMouseClickY() >= this->rectangle.y && Event::getMouseClickY() < this->rectangle.y + this->rectangle.h)
 			Event::pushCustomEvent(customEventCode);
 	}
 };

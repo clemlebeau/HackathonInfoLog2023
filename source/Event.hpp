@@ -12,6 +12,9 @@
 
 #define MENU_JOUER_CLICK 32771
 #define MENU_QUITTER_CLICK 32772
+#define MENU_NEXT_SCENE 32773
+
+#define ANIMATION_END 32774
 
 /// @class Event
 /// @brief Implémentation orientée objet du type SDL_Event de SDL2

@@ -7,11 +7,16 @@
 #include "Scene.hpp"
 #include "CrocodileGame.hpp"
 #include "Application.hpp"
+#include "Lerp.h"
+
+#include "Label.hpp"
 
 #define FRONT_TOOTH_MAX 16
 
 class MainMenuScene : public Scene {
 private:
+  Label *debugLabel;
+  
 
 public:
 	MainMenuScene() :
@@ -19,6 +24,9 @@ public:
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("WaterTexture")), "aWaterImage");
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("MenuCrocoTexture")), "bMenuCrocoImage");
 		
+    debugLabel = new Label(TTF_OpenFont("D:/Code/arial.ttf", 24), {255, 0, 0, 255}, 0, 0, "TEST");
+    addComponent(debugLabel, "zzDebugLabel");
+
     Image *crocoNoBackground = new Image(0, 0, RessourceManager::get<SDL_Texture *>("CrocoNoBackgroundTexture"));
     crocoNoBackground->resize(800);
     crocoNoBackground->move(0, RENDER_HEIGHT - crocoNoBackground->getRectangle().h);

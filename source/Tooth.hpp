@@ -96,6 +96,9 @@ public:
 	virtual ~Tooth() {
 		SDL_FreeSurface(unselectedSurface);
 		SDL_FreeSurface(selectedSurface);
+
+		if(isExtended)
+			Tooth::extendedCounter--;
 	}
 
 	virtual void update(double deltaTime) {}

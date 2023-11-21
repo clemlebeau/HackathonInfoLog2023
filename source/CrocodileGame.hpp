@@ -29,14 +29,23 @@ public:
 		RessourceManager::add("Cursor", loadTextureFromImage("./assets/images/cursor.png"));
 		Cursor::getInstance()->setTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
 
-    RessourceManager::add("BlueRoosterTexture", loadTextureFromImage("./assets/images/bluerooster.png"));
+    RessourceManager::add("CrocoFrontTexture", loadTextureFromImage("./assets/images/croco/CrocoFront.png"));
+    RessourceManager::add("CrocoMiddleTexture", loadTextureFromImage("./assets/images/croco/CrocoMiddle.png"));
+    RessourceManager::add("CrocoBackTexture", loadTextureFromImage("./assets/images/croco/CrocoBack.png"));
+    RessourceManager::add("WaterTexture", loadTextureFromImage("./assets/images/backgrounds/Water.png"));
 	}
 
 	virtual ~CrocodileGame() {
     SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("Cursor"));
     RessourceManager::remove("Cursor");
-		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("BlueRoosterTexture"));
-    RessourceManager::remove("BlueRoosterTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoFrontTexture"));
+    RessourceManager::remove("CrocoFrontTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoMiddleTexture"));
+    RessourceManager::remove("CrocoMiddleTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("CrocoBackTexture"));
+    RessourceManager::remove("CrocoBackTexture");
+		SDL_DestroyTexture(RessourceManager::get<SDL_Texture *>("WaterTexture"));
+    RessourceManager::remove("WaterTexture");
   }
 
 	/// @brief Change la scène actuelle

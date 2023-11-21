@@ -15,7 +15,7 @@
 
 class MainMenuScene : public Scene {
 private:
-  Label *debugLabel;
+  //Label *debugLabel;
   
 
 public:
@@ -24,8 +24,8 @@ public:
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("WaterTexture")), "aWaterImage");
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("MenuCrocoTexture")), "bMenuCrocoImage");
 		
-    debugLabel = new Label(TTF_OpenFont("D:/Code/arial.ttf", 24), {255, 0, 0, 255}, 0, 0, "TEST");
-    addComponent(debugLabel, "zzDebugLabel");
+    //debugLabel = new Label(TTF_OpenFont("D:/Code/arial.ttf", 24), {255, 0, 0, 255}, 0, 0, "TEST");
+    //addComponent(debugLabel, "zzDebugLabel");
 
     Image *crocoNoBackground = new Image(0, 0, RessourceManager::get<SDL_Texture *>("CrocoNoBackgroundTexture"));
     crocoNoBackground->resize(800);

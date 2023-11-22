@@ -35,7 +35,7 @@ public:
 
 	void update(double deltaTime, Image *image) {
 		if (!isAnimating && image->getRectangle().w != widthFrom) {
-			animateImage(image); // Doesn't *really* animate, but sets the dimension/position back to the 'from' state after a reset()
+			animateImage(image);   // Doesn't *really* animate, but sets the dimension/position back to the 'from' state after a reset()
 		}
 		if (isAnimating && t >= 1.0) {
 			Event::pushCustomEvent(overEventCode);
@@ -55,4 +55,6 @@ public:
 		isAnimating = false;
 		t = 0;
 	}
+
+	bool isOver() { return t == 1.0; }
 };

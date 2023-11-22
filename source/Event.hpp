@@ -15,7 +15,9 @@
 #define MENU_NEXT_SCENE 32773
 
 #define ANIMATION_END 32774
-#define TOOTH_RETRACTION_OVER_EVENT 32775
+#define ALL_TEETH_EXTENDED 32775
+
+#define EVENT_NO_OP 40000
 
 /// @class Event
 /// @brief Implémentation orientée objet du type SDL_Event de SDL2

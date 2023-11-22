@@ -10,26 +10,33 @@
 #include "ImageAnimation.hpp"
 #include "Scene.hpp"
 
-#define ENDSCENE_TRANSITION_ANIMATION_DURATION 0.5
-#define ENDSCENE_TRANSITION_ANIMATION_WIDTH_FROM 550
-#define ENDSCENE_TRANSITION_ANIMATION_WIDTH_TO RENDER_WIDTH
+#define ENDSCENE_TRANSITION_ANIMATION_OUT_DURATION 0.5
+#define ENDSCENE_TRANSITION_ANIMATION_OUT_WIDTH_FROM 550
+#define ENDSCENE_TRANSITION_ANIMATION_OUT_WIDTH_TO RENDER_WIDTH
+
+#define ENDSCENE_TRANSITION_ANIMATION_IN_DURATION 0.5
+#define ENDSCENE_TRANSITION_ANIMATION_IN_WIDTH_FROM RENDER_WIDTH
+#define ENDSCENE_TRANSITION_ANIMATION_IN_WIDTH_TO 550
 
 class EndScene : public Scene {
 private:
-	ImageAnimation *imageAnimation;
-
+	ImageAnimation *imageAnimationOut;
+	ImageAnimation *imageAnimationIn;
 public:
 	EndScene() :
 		Scene() {
-		imageAnimation = new ImageAnimation(ENDSCENE_TRANSITION_ANIMATION_WIDTH_FROM, ENDSCENE_TRANSITION_ANIMATION_WIDTH_TO, ENDSCENE_TRANSITION_ANIMATION_DURATION, MENU_NEXT_SCENE);
+		imageAnimationOut = new ImageAnimation(ENDSCENE_TRANSITION_ANIMATION_OUT_WIDTH_FROM, ENDSCENE_TRANSITION_ANIMATION_OUT_WIDTH_TO, ENDSCENE_TRANSITION_ANIMATION_OUT_DURATION, MENU_NEXT_SCENE);
 		subscribeComponent(MENU_NEXT_SCENE, this);
+
+		imageAnimationIn = new ImageAnimation(ENDSCENE_TRANSITION_ANIMATION_IN_WIDTH_FROM, ENDSCENE_TRANSITION_ANIMATION_IN_WIDTH_TO, ENDSCENE_TRANSITION_ANIMATION_IN_DURATION, EVENT_NO_OP);
+		subscribeComponent(ALL_TEETH_EXTENDED, this);
 
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("WaterTexture")), "aWaterImage");
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("EndGagnantTexture"), false), "bEndGagnantImage");
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("EndPerdantTexture"), false), "bEndPerdantImage");
 
 		Image *crocoNoBackground = new Image(0, 0, RessourceManager::get<SDL_Texture *>("CrocoNoBackgroundTexture"));
-		crocoNoBackground->resize(ENDSCENE_TRANSITION_ANIMATION_WIDTH_FROM);
+		crocoNoBackground->resize(ENDSCENE_TRANSITION_ANIMATION_IN_WIDTH_FROM);
 		crocoNoBackground->move(0, RENDER_HEIGHT - crocoNoBackground->getRectangle().h);
 		addComponent(crocoNoBackground, "zCrocoNoBackgroundImage");
 
@@ -44,7 +51,8 @@ public:
 	}
 
 	virtual ~EndScene() {
-		delete imageAnimation;
+		delete imageAnimationOut;
+		delete imageAnimationIn;
 	}
 
 	void setParams(int argc, ...) {
@@ -56,13 +64,19 @@ public:
 		((Image *) (components["bEndPerdantImage"]))->setVisibility(!isWinning);
 		va_end(argl);
 
-		imageAnimation->reset();
+		imageAnimationOut->reset();
+		imageAnimationIn->reset();
+
+		Event::pushCustomEvent(ALL_TEETH_EXTENDED); // Start transition from end of game to endgame menu
 	}
 
 	void notification() {
 		switch (Event::getCustomType()) {
+			case ALL_TEETH_EXTENDED:
+				imageAnimationIn->start();
+			break;
 			case MENU_JOUER_CLICK:
-				imageAnimation->start();
+				imageAnimationOut->start();
 				break;
 			case MENU_QUITTER_CLICK:
 				Event::pushQuitEvent();
@@ -75,7 +89,10 @@ public:
 	}
 
 	void handleUpdate(double deltaTime) {
-		imageAnimation->update(deltaTime, (Image *) components["zCrocoNoBackgroundImage"]);
+		if(imageAnimationIn->isOver())
+			imageAnimationOut->update(deltaTime, (Image *) components["zCrocoNoBackgroundImage"]);
+		else
+			imageAnimationIn->update(deltaTime, (Image *) components["zCrocoNoBackgroundImage"]);
 	}
 
 	void handleDraw(Renderer *renderer) {

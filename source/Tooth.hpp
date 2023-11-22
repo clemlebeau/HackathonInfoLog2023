@@ -1,10 +1,16 @@
 #pragma once
 
 #include "Image.hpp"
+#include "Lerp.h"
+
+#define TOOTH_RETRACTION_DURATION 0.35
 
 class Tooth : public Image {
 private:
 	static int extendedCounter;
+
+	bool isAnimating;
+	double tAnim;
 
 	SDL_Surface *selectedSurface;
 	SDL_Surface *unselectedSurface;
@@ -67,13 +73,36 @@ private:
 	}
 
 	void retract() {
+		isAnimating = false;
 		Tooth::extendedCounter--;
-		this->rectangle.x = xRetracted;
-		this->rectangle.y = yRetracted;
 		if (isLethal) {
 			Event::pushCustomEvent(GAME_LOST);
-		} else if (extendedCounter == 1) {
+		}
+		else if (Tooth::extendedCounter == 1) {
 			Event::pushCustomEvent(GAME_WON);
+		}
+	}
+
+	void startRetract() {
+		isAnimating = true;
+	}
+
+	void lerpBetweenPositions(int xFrom, int yFrom, int xTo, int yTo, double t) {
+		int newX = (int) lerp((double) xFrom, (double) xTo, t);
+		int newY = (int) lerp((double) yFrom, (double) yTo, t);
+
+		rectangle.x = newX;
+		rectangle.y = newY;
+	}
+
+	void updateAnimation(double deltaTime) {
+		if (tAnim >= 1.0)
+			retract();
+		else {
+			tAnim += deltaTime / TOOTH_RETRACTION_DURATION;
+			if (tAnim > 1.0) tAnim = 1.0;
+
+			lerpBetweenPositions(xExtended, yExtended, xRetracted, yRetracted, cbrt(tAnim));
 		}
 	}
 
@@ -87,7 +116,11 @@ public:
 		this->isLethal = isLethal;
 		isExtended = true;
 		isHovered = false;
+
 		Tooth::extendedCounter++;
+
+		isAnimating = false;
+		tAnim = 0.0;
 
 		unselectedSurface = surface;
 		selectedSurface = generateHighlightedSurface(surface);
@@ -97,15 +130,17 @@ public:
 		SDL_FreeSurface(unselectedSurface);
 		SDL_FreeSurface(selectedSurface);
 
-		if(isExtended)
+		if (isExtended)
 			Tooth::extendedCounter--;
 	}
 
-	virtual void update(double deltaTime) {}
+	virtual void update(double deltaTime) {
+		if (isAnimating)
+			updateAnimation(deltaTime);
+	}
 
 	virtual void draw(Renderer *renderer) {
 		Image::draw(renderer);
-		// Draw selected rectangle if necessary
 	}
 
 	virtual void notification() {
@@ -126,7 +161,7 @@ public:
 				if (isExtended && isOnTooth(mousePos.x, mousePos.y)) {
 					isExtended = false;
 					unselect();
-					retract();
+					startRetract();
 				}
 				break;
 			}

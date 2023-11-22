@@ -10,20 +10,18 @@
 #include "ImageAnimation.hpp"
 #include "Scene.hpp"
 
-#define FRONT_TOOTH_MAX 16
-
-#define ENDSCENE_TRANSITION_ANIMATION_DURATION 1.0
+#define ENDSCENE_TRANSITION_ANIMATION_DURATION 0.5
 #define ENDSCENE_TRANSITION_ANIMATION_WIDTH_FROM 550
-#define ENDSCENE_TRANSITION_ANIMATION_WIDTH_TO 800
+#define ENDSCENE_TRANSITION_ANIMATION_WIDTH_TO RENDER_WIDTH
 
 class EndScene : public Scene {
 private:
-	//ImageAnimation *imageAnimation;
+	ImageAnimation *imageAnimation;
 
 public:
 	EndScene() :
 		Scene() {
-		//imageAnimation = new ImageAnimation(ENDSCENE_TRANSITION_ANIMATION_WIDTH_FROM, ENDSCENE_TRANSITION_ANIMATION_WIDTH_TO, ENDSCENE_TRANSITION_ANIMATION_DURATION, MENU_NEXT_SCENE);
+		imageAnimation = new ImageAnimation(ENDSCENE_TRANSITION_ANIMATION_WIDTH_FROM, ENDSCENE_TRANSITION_ANIMATION_WIDTH_TO, ENDSCENE_TRANSITION_ANIMATION_DURATION, MENU_NEXT_SCENE);
 		subscribeComponent(MENU_NEXT_SCENE, this);
 
 		addComponent(new Image(0, 0, RessourceManager::get<SDL_Texture *>("WaterTexture")), "aWaterImage");
@@ -46,7 +44,7 @@ public:
 	}
 
 	virtual ~EndScene() {
-		//delete imageAnimation;
+		delete imageAnimation;
 	}
 
 	void setParams(int argc, ...) {
@@ -57,13 +55,14 @@ public:
 		((Image *) (components["bEndGagnantImage"]))->setVisibility(isWinning);
 		((Image *) (components["bEndPerdantImage"]))->setVisibility(!isWinning);
 		va_end(argl);
+
+		imageAnimation->reset();
 	}
 
 	void notification() {
 		switch (Event::getCustomType()) {
 			case MENU_JOUER_CLICK:
-        Event::pushCustomEvent(MENU_NEXT_SCENE); // TEMPORARY UNTIL IMAGEANIMATION IS FIXED
-				//imageAnimation->start();
+				imageAnimation->start();
 				break;
 			case MENU_QUITTER_CLICK:
 				Event::pushQuitEvent();
@@ -76,14 +75,15 @@ public:
 	}
 
 	void handleUpdate(double deltaTime) {
-		//imageAnimation->update(deltaTime, (Image *) components["CrocoNoBackgroundImage"]);
+		imageAnimation->update(deltaTime, (Image *) components["zCrocoNoBackgroundImage"]);
 	}
 
 	void handleDraw(Renderer *renderer) {
 		renderer->clear();
 
 		for (auto it: components) {
-			(it.second)->draw(renderer);
+			if (it.second)
+				it.second->draw(renderer);
 		}
 
 		Cursor::getInstance()->draw(renderer);

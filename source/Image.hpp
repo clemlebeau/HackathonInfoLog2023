@@ -44,6 +44,37 @@ public:
 		this->surface = surface;
 	}
 
+	double getDefaultAspectRatio(bool isWidthOverHeight = true) {
+		int width = getDefaultWidth();
+		int height = getDefaultHeight();
+		if(isWidthOverHeight) {
+			return height ? (double)width / (double)height : 0.0;
+		}
+		return width ? (double)height / (double)width : 0.0;
+	}
+
+	int getDefaultWidth() {
+		if(texture) {
+			int width;
+			SDL_QueryTexture(texture, nullptr, nullptr, &width, nullptr);
+			return width;
+		} else if (surface) {
+			return surface->w;
+		}
+		return rectangle.w;
+	}
+
+	int getDefaultHeight() {
+		if(texture) {
+			int height;
+			SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &height);
+			return height;
+		} else if (surface) {
+			return surface->h;
+		}
+		return rectangle.h;
+	}
+
 	/// @brief Met à jour la texture de l'image depuis sa surface. Note: Si possible, appeler cette méthode uniquement au changement de la surface, pas à chaque frame.
 	/// @param renderer Moteur de rendu dans lequel l'image est affichée
 	void refreshTexture(Renderer *renderer) {

@@ -17,7 +17,7 @@ private:
 
 	void animateImage(Image *image) {
 		int width = (int) lerp((double) widthFrom, (double) widthTo, t);
-		image->resize(width);
+		image->resizeRatio(width, image->getDefaultAspectRatio(false));
 		image->move(image->getRectangle().x, RENDER_HEIGHT - image->getRectangle().h);
 	}
 
@@ -34,12 +34,15 @@ public:
 	}
 
 	void update(double deltaTime, Image *image) {
-		if (isAnimating && t <= 0.0) {
+		if (!isAnimating && image->getRectangle().w != widthFrom) {
+			animateImage(image); // Doesn't *really* animate, but sets the dimension/position back to the 'from' state after a reset()
+		}
+		if (isAnimating && t >= 1.0) {
 			Event::pushCustomEvent(overEventCode);
 		}
 		if (isAnimating) {
-			t -= deltaTime / duration;
-			if (t < 0.0) t = 0.0;
+			t += deltaTime / duration;
+			if (t > 1.0) t = 1.0;
 			animateImage(image);
 		}
 	}
@@ -47,4 +50,9 @@ public:
 	void start() { isAnimating = true; }
 
 	void stop() { isAnimating = false; }
+
+	void reset() {
+		isAnimating = false;
+		t = 0;
+	}
 };

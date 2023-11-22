@@ -25,7 +25,5 @@ int main(int argc, char **argv) {
 
   Application::getInstance().start();
 
-  delete gameScene;
-
 	return 0;
 }

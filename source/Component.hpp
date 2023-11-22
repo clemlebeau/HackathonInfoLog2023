@@ -47,6 +47,11 @@ public:
 		}
 	}
 
+	virtual void resizeRatio(int newWidth, double ratio = 9.0 / 16.0) {
+		rectangle.w = newWidth;
+		rectangle.h = ratio * rectangle.w;
+	}
+
 	/// @brief Déplace le composant aux coordonnées indiquées
 	/// @param x Coordonnée en X où déplacer le composant
 	/// @param y Coordonnée en Y où déplacer le composant

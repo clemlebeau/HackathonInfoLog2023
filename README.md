@@ -6,12 +6,16 @@ Notre entrée au [Hackathon GIGL 2023 de Polytechnique Montréal](https://github
 ![Photo du jouet qu'on recrée](http://i2.cdscdn.com/pdt2/0/6/5/1/700x700/gee2009815369065/rw/jouet-crocodile-dentiste-mord-doigts-jeu-enfants-k.jpg "Le jouet qu'on veut recréer")
 [Image du jouet dans la réalité](http://i2.cdscdn.com/pdt2/0/6/5/1/700x700/gee2009815369065/rw/jouet-crocodile-dentiste-mord-doigts-jeu-enfants-k.jpg)[1]
 
+## Vidéo de soumission
+
+[![](https://markdown-videos-api.jorgenkh.no/youtube/vHnjGB0NIIk)](https://youtu.be/vHnjGB0NIIk)
+
 ## Équipe et séparation du travail
 Notre équipe est composée de 3 personnes: [Clément Jevardat de Fombelle](https://github.com/clemdef), [Maya Forest](https://github.com/bacondelicorne) et [Clément Lebeau](https://github.com/clemlebeau).
 
 Voici comment nous nous sommes séparé les tâches:
 - Clément Jevardat de Fombelle : Tâches pointues entourant l'implémentation des nombres aléatoires et implémentation du mode plein écran (qui ne s'est malheureusement pas rendu dans la version finale du projet par manque de temps)
-- Maya Forest : Textures du projet, design graphique, brainstorming
+- Maya Forest : Dessin de toutes les textures du projet, design graphique, brainstorming
 - Clément Lebeau : Intégration de l'aléatoire et des textures au jeu, affichage et logique interne du jeu.
 
 ## Technologies utilisées
